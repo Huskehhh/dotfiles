@@ -26,6 +26,9 @@ install_zsh() {
   cargo install --locked sheldon
   cp plugins.toml $HOME/.config/sheldon/plugins.toml
 
+  # Starship prompt.
+  curl -sS https://starship.rs/install.sh | sh
+
   echo "Installed ZSH. Log in and log out for it to take effect."
 }
 
