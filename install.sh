@@ -12,18 +12,21 @@ install_lunarvim() {
 install_rust() {
   echo "Installing rust"
   curl https://sh.rustup.rs -sSf | sh -s -- -y
+  source $HOME/.cargo/env
   echo "Rust installed."
 }
 
 install_zsh() {
   echo "Installing ZSH..."
   sudo dnf install zsh
-  chsh -s `which zsh`
+  echo "Path to ZSH: $(which zsh)"
+  sudo lchsh $USER
   cp .aliases.zsh $HOME/.aliases.zsh
   cp .zshrc $HOME/.zshrc
   
   # Begin zsh plugins installation.
   cargo install --locked sheldon
+  mkdir -p $HOME/.config/sheldon/
   cp plugins.toml $HOME/.config/sheldon/plugins.toml
 
   # Starship prompt.
@@ -43,6 +46,7 @@ install_sdkman() {
 }
 
 install_misc_utils() {
+  sudo dnf install -y openssl-devel make automake gcc gcc-c++ kernel-devel
   cargo install --locked zoxide
   cargo install --locked ripgrep
   cargo install --locked fd-find
