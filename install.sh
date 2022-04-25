@@ -15,35 +15,18 @@ install_rust() {
   echo "Rust installed."
 }
 
-install_docker() {
-  echo "Installing docker..."
-  sudo dnf -y install dnf-plugins-core
-  sudo dnf config-manager \
-    --add-repo \
-    https://download.docker.com/linux/fedora/docker-ce.repo
-  sudo dnf install docker-ce docker-ce-cli containerd.io
-
-  # Install docker compose
-  mkdir -p $HOME/.docker/cli-plugins
-
-  # Get the latest release download url for docker compose from github.
-  curl -s https://api.github.com/repos/docker/compose/releases/latest | jq  -c '[.assets[] | select( .name | contains("docker-compose-linux-x86_64"))][0].browser_download_url' \
-    | tr -d \" \
-    | wget -qi -
-
-  chmod +x docker-compose-linux-x86_64
-  mv docker-compose-linux-x86_64 $HOME/.docker/cli-plugins/docker-compose 
-
-  echo "Docker installed."
-}
-
 install_zsh() {
   echo "Installing ZSH..."
   sudo dnf install zsh
   chsh -s `which zsh`
+  cp .aliases.zsh $HOME/.aliases.zsh
+  cp .zshrc $HOME/.zshrc
   
-  # Set up plugins
-  echo "Installed ZSH."
+  # Begin zsh plugins installation.
+  cargo install --locked sheldon
+  cp plugins.toml $HOME/.config/sheldon/plugins.toml
+
+  echo "Installed ZSH. Log in and log out for it to take effect."
 }
 
 install_sdkman() {
@@ -85,10 +68,10 @@ EOF
 echo "Starting installation..."
 
 install_rust
-#install_docker
 install_sdkman
-#install_vscode
-#install_lunarvim
+install_vscode
+install_lunarvim
 install_misc_utils
+install_zsh
 
 echo "Installation complete."
