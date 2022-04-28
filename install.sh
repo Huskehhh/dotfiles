@@ -2,7 +2,6 @@
 
 install_lunarvim() {
   echo "Installing LunarVim..."
-  sudo dnf install npm neovim
   mkdir ~/.npm-global
   npm config set prefix '~/.npm-global'
   bash <(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh) -y
@@ -46,7 +45,6 @@ install_sdkman() {
 }
 
 install_misc_utils() {
-  sudo dnf install -y openssl-devel make automake gcc gcc-c++ kernel-devel
   cargo install --locked zoxide
   cargo install --locked ripgrep
   cargo install --locked fd-find
@@ -56,27 +54,10 @@ install_misc_utils() {
   cargo install --locked just
 }
 
-install_vscode() {
-  echo "Installing VS Code..."
-  sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
-  cat <<EOF | sudo tee /etc/yum.repos.d/vscode.repo
-[code]
-name=Visual Studio Code
-baseurl=https://packages.microsoft.com/yumrepos/vscode
-enabled=1
-gpgcheck=1
-gpgkey=https://packages.microsoft.com/keys/microsoft.asc
-EOF
-  sudo dnf check-update
-  sudo dnf install code
-  echo "Installed VS Code."
-}
-
 echo "Starting installation..."
 
 install_rust
 install_sdkman
-install_vscode
 install_lunarvim
 install_misc_utils
 install_zsh
