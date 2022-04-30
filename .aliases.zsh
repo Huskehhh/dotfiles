@@ -10,6 +10,7 @@ alias gs="git status"
 alias gw="git switch"
 alias gu="git restore --staged"
 alias co="git checkout"
+alias lh="git rev-parse --short HEAD"
 
 alias flushdns="sudo systemd-resolve --flush-caches"
 
