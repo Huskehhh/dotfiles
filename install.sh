@@ -49,10 +49,12 @@ install_sdkman() {
 install_volta_npm() {
   curl https://get.volta.sh | bash
   volta install node
+  echo "Installed Volta and NodeJS!"
 }
 
 install_python3() {
   sudo apt install -y python3 python3-pip
+  echo "Installed Python3 and pip!"
 }
 
 install_build_deps() {
@@ -72,10 +74,23 @@ install_misc_utils() {
 
 install_iosevka() {
   mkdir -p ~/.fonts
-  cd ~/.fonts
+  pushd ~/.fonts
   wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Iosevka.zip
   unzip Iosevka.zip
   rm -rf Iosevka.zip
+  popd
+  echo "Installed Iosevka font..."
+}
+
+install_podman() {
+  sudo sh -c "echo 'deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_20.04/ /' > /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list"
+  wget -nv https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable/xUbuntu_20.04/Release.key -O- | sudo apt-key add -
+  sudo apt update
+  sudo apt install -y podman docker-compose
+  sudo systemctl enable podman.socket
+  sudo systemctl start podman.socket
+  sudo usermod -aG docker $USER
+  echo "Installed podman and docker-compose"
 }
 
 echo "Starting installation..."
@@ -89,5 +104,6 @@ install_lunarvim
 install_misc_utils
 install_zsh
 install_iosevka
+install_podman
 
 echo "Installation complete."
