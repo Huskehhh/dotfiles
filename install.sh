@@ -5,7 +5,10 @@ install_lunarvim() {
   mkdir ~/.npm-global
   npm config set prefix '~/.npm-global'
   bash <(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh) -y
-  echo "Installed LunarVim."
+  SRC="$HOME/.local/bin/lvim"
+  DST="/usr/local/bin/lvim"
+  sudo ln -s $SRC $DST
+  echo "Installed LunarVim and symlinked $DST to $SRC."
 }
 
 install_rust() {
@@ -17,9 +20,8 @@ install_rust() {
 
 install_zsh() {
   echo "Installing ZSH..."
-  sudo dnf install zsh
-  echo "Path to ZSH: $(which zsh)"
-  sudo lchsh $USER
+  sudo apt install zsh -y
+  chsh -s `which zsh`
   cp .aliases.zsh $HOME/.aliases.zsh
   cp .zshrc $HOME/.zshrc
   
@@ -44,22 +46,48 @@ install_sdkman() {
   echo "A java installation needs to be installed, view the output of 'sdk list java' and install via 'sdk install java <version>'."
 }
 
+install_volta_npm() {
+  curl https://get.volta.sh | bash
+  volta install node
+}
+
+install_python3() {
+  sudo apt install -y python3 python3-pip
+}
+
+install_build_deps() {
+  sudo apt install -y build-essential libssl-dev git tmux zip unzip
+}
+
 install_misc_utils() {
-  cargo install --locked zoxide
-  cargo install --locked ripgrep
-  cargo install --locked fd-find
-  cargo install --locked difftastic
-  cargo install --locked igrep
+  cargo install zoxide
+  cargo install ripgrep
+  cargo install fd-find
+  cargo install difftastic
+  cargo install igrep
   # cargo install --locked jless -- Disabled for now
-  cargo install --locked just
+  cargo install just
+  cargo install broot
+}
+
+install_iosevka() {
+  mkdir -p ~/.fonts
+  cd ~/.fonts
+  wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Iosevka.zip
+  unzip Iosevka.zip
+  rm -rf Iosevka.zip
 }
 
 echo "Starting installation..."
 
+install_build_deps
+install_volta_npm
+install_python3
 install_rust
 install_sdkman
 install_lunarvim
 install_misc_utils
 install_zsh
+install_iosevka
 
 echo "Installation complete."
