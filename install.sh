@@ -31,12 +31,12 @@ install_zsh() {
   cp .zshrc $HOME/.zshrc
   
   # Begin zsh plugins installation.
-  cargo install sheldon
+  cargo install sheldon --locked
   mkdir -p $HOME/.config/sheldon/
   cp plugins.toml $HOME/.config/sheldon/plugins.toml
 
   # Starship prompt.
-  curl -sS https://starship.rs/install.sh | sh
+  cargo install starship --locked
 
   echo "Installed ZSH. Log in and log out for it to take effect."
 }
@@ -65,18 +65,18 @@ install_python3() {
 }
 
 install_build_deps() {
-  sudo apt install -y build-essential libssl-dev git tmux zip unzip curl
+  sudo apt install -y build-essential libssl-dev git tmux zip unzip curl pkg-config
 }
 
 install_misc_utils() {
-  cargo install zoxide
-  cargo install ripgrep
-  cargo install fd-find
-  cargo install difftastic
-  cargo install igrep
-  cargo install just
-  cargo install broot
-  cargo install atuin
+  cargo install zoxide --locked
+  cargo install ripgrep --locked
+  cargo install fd-find --locked
+  cargo install difftastic --locked
+  cargo install igrep --locked
+  cargo install just --locked
+  cargo install broot --locked
+  cargo install atuin --locked
 }
 
 echo "Starting installation..."
