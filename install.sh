@@ -1,20 +1,25 @@
 #!/usr/bin/env bash
 
-install_lunarvim() {
-  echo "Installing LunarVim..."
-  mkdir ~/.npm-global
-  npm config set prefix '~/.npm-global'
-  bash <(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh) -y
-  SRC="$HOME/.local/bin/lvim"
-  DST="/usr/local/bin/lvim"
-  sudo ln -s $SRC $DST
-  echo "Installed LunarVim and symlinked $DST to $SRC."
+install_nvim() {
+  # Install neovim latest version
+  sudo apt install -y neovim
+
+  # Then overwrite the binary with the latest
+  bash <(curl -s https://raw.githubusercontent.com/LunarVim/LunarVim/rolling/utils/installer/install-neovim-from-release)
+  sudo install neovim $(which neovim)
+  rm -rf neovim
+
+  # Now install AstroVim
+  git clone https://github.com/AstroNvim/AstroNvim ~/.config/nvim
+  nvim +PackerSync
+
+  echo "Installed nvim + AstroVim."
 }
 
 install_rust() {
   echo "Installing rust"
   curl https://sh.rustup.rs -sSf | sh -s -- -y
-  source $HOME/.cargo/env
+  source "$HOME/.cargo/env"
   echo "Rust installed."
 }
 
@@ -26,7 +31,7 @@ install_zsh() {
   cp .zshrc $HOME/.zshrc
   
   # Begin zsh plugins installation.
-  cargo install --locked sheldon
+  cargo install sheldon
   mkdir -p $HOME/.config/sheldon/
   cp plugins.toml $HOME/.config/sheldon/plugins.toml
 
@@ -48,6 +53,8 @@ install_sdkman() {
 
 install_volta_npm() {
   curl https://get.volta.sh | bash
+  export VOLTA_HOME="$HOME/.volta"
+  export PATH="$VOLTA_HOME/bin:$PATH"
   volta install node
   echo "Installed Volta and NodeJS!"
 }
@@ -67,30 +74,9 @@ install_misc_utils() {
   cargo install fd-find
   cargo install difftastic
   cargo install igrep
-  # cargo install --locked jless -- Disabled for now
   cargo install just
   cargo install broot
-}
-
-install_iosevka() {
-  mkdir -p ~/.fonts
-  pushd ~/.fonts
-  wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Iosevka.zip
-  unzip Iosevka.zip
-  rm -rf Iosevka.zip
-  popd
-  echo "Installed Iosevka font..."
-}
-
-install_podman() {
-  sudo sh -c "echo 'deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_20.04/ /' > /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list"
-  wget -nv https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable/xUbuntu_20.04/Release.key -O- | sudo apt-key add -
-  sudo apt update
-  sudo apt install -y podman docker-compose
-  sudo systemctl enable podman.socket
-  sudo systemctl start podman.socket
-  sudo usermod -aG docker $USER
-  echo "Installed podman and docker-compose"
+  cargo install atuin
 }
 
 echo "Starting installation..."
@@ -100,10 +86,8 @@ install_volta_npm
 install_python3
 install_rust
 install_sdkman
-install_lunarvim
 install_misc_utils
+install_nvim
 install_zsh
-install_iosevka
-install_podman
 
 echo "Installation complete."
