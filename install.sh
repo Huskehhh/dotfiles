@@ -65,7 +65,7 @@ install_python3() {
 }
 
 install_build_deps() {
-  sudo apt install -y build-essential libssl-dev git tmux zip unzip
+  sudo apt install -y build-essential libssl-dev git tmux zip unzip curl
 }
 
 install_misc_utils() {

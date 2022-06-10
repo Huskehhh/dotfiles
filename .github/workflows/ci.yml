@@ -14,5 +14,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      - name: Install sudo
+        run: apt update && apt install -y sudo
       - name: Run install script
-        run: ./install.sh
+        run: bash install.sh
