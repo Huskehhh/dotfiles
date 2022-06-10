@@ -10,6 +10,7 @@ alias gs="git status"
 alias gw="git switch"
 alias gu="git restore --staged"
 alias co="git checkout"
+alias lh="git rev-parse --short HEAD"
 
 alias flushdns="sudo systemd-resolve --flush-caches"
 
@@ -20,4 +21,6 @@ alias rustscan='docker run -it --rm --name rustscan rustscan/rustscan:2.0.0'
 alias py="python3"
 alias p="pueue"
 
-alias vim="lvim"
+alias vim="nvim"
+
+alias socks="ssh -v -D 1337 -q -C -N jordyn@host"

@@ -1,31 +1,37 @@
 #!/usr/bin/env bash
 
-install_lunarvim() {
-  echo "Installing LunarVim..."
-  sudo dnf install npm neovim
-  mkdir ~/.npm-global
-  npm config set prefix '~/.npm-global'
-  bash <(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh) -y
-  echo "Installed LunarVim."
+install_nvim() {
+  # Install neovim latest version
+  sudo apt install -y neovim
+
+  # Then overwrite the binary with the latest
+  bash <(curl -s https://raw.githubusercontent.com/LunarVim/LunarVim/rolling/utils/installer/install-neovim-from-release)
+  sudo install neovim $(which neovim)
+  rm -rf neovim
+
+  # Now install AstroVim
+  git clone https://github.com/AstroNvim/AstroNvim ~/.config/nvim
+  nvim +PackerSync
+
+  echo "Installed nvim + AstroVim."
 }
 
 install_rust() {
   echo "Installing rust"
   curl https://sh.rustup.rs -sSf | sh -s -- -y
-  source $HOME/.cargo/env
+  source "$HOME/.cargo/env"
   echo "Rust installed."
 }
 
 install_zsh() {
   echo "Installing ZSH..."
-  sudo dnf install zsh
-  echo "Path to ZSH: $(which zsh)"
-  sudo lchsh $USER
+  sudo apt install zsh -y
+  chsh -s `which zsh`
   cp .aliases.zsh $HOME/.aliases.zsh
   cp .zshrc $HOME/.zshrc
   
   # Begin zsh plugins installation.
-  cargo install --locked sheldon
+  cargo install sheldon
   mkdir -p $HOME/.config/sheldon/
   cp plugins.toml $HOME/.config/sheldon/plugins.toml
 
@@ -45,40 +51,43 @@ install_sdkman() {
   echo "A java installation needs to be installed, view the output of 'sdk list java' and install via 'sdk install java <version>'."
 }
 
-install_misc_utils() {
-  sudo dnf install -y openssl-devel make automake gcc gcc-c++ kernel-devel
-  cargo install --locked zoxide
-  cargo install --locked ripgrep
-  cargo install --locked fd-find
-  cargo install --locked difftastic
-  cargo install --locked igrep
-  # cargo install --locked jless -- Disabled for now
-  cargo install --locked just
+install_volta_npm() {
+  curl https://get.volta.sh | bash
+  export VOLTA_HOME="$HOME/.volta"
+  export PATH="$VOLTA_HOME/bin:$PATH"
+  volta install node
+  echo "Installed Volta and NodeJS!"
 }
 
-install_vscode() {
-  echo "Installing VS Code..."
-  sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
-  cat <<EOF | sudo tee /etc/yum.repos.d/vscode.repo
-[code]
-name=Visual Studio Code
-baseurl=https://packages.microsoft.com/yumrepos/vscode
-enabled=1
-gpgcheck=1
-gpgkey=https://packages.microsoft.com/keys/microsoft.asc
-EOF
-  sudo dnf check-update
-  sudo dnf install code
-  echo "Installed VS Code."
+install_python3() {
+  sudo apt install -y python3 python3-pip
+  echo "Installed Python3 and pip!"
+}
+
+install_build_deps() {
+  sudo apt install -y build-essential libssl-dev git tmux zip unzip
+}
+
+install_misc_utils() {
+  cargo install zoxide
+  cargo install ripgrep
+  cargo install fd-find
+  cargo install difftastic
+  cargo install igrep
+  cargo install just
+  cargo install broot
+  cargo install atuin
 }
 
 echo "Starting installation..."
 
+install_build_deps
+install_volta_npm
+install_python3
 install_rust
 install_sdkman
-install_vscode
-install_lunarvim
 install_misc_utils
+install_nvim
 install_zsh
 
 echo "Installation complete."
