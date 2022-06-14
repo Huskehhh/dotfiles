@@ -6,10 +6,11 @@ install_nvim() {
 
   # Then overwrite the binary with the latest
   bash <(curl -s https://raw.githubusercontent.com/LunarVim/LunarVim/rolling/utils/installer/install-neovim-from-release)
-  sudo install neovim $(which neovim)
+  sudo install $HOME/.local/bin/nvim /usr/bin/nvim
   rm -rf neovim
 
   # Now install AstroVim
+  rm -rf ~/.config/nvim
   git clone https://github.com/AstroNvim/AstroNvim ~/.config/nvim
   nvim +PackerSync
 
@@ -32,8 +33,8 @@ install_zsh() {
   
   # Begin zsh plugins installation.
   cargo install sheldon --locked
-  mkdir -p $HOME/.config/sheldon/
-  cp plugins.toml $HOME/.config/sheldon/plugins.toml
+  mkdir -p $HOME/.zshrcsheldon/
+  cp plugins.toml $HOME/.sheldon/plugins.toml
 
   # Starship prompt.
   cargo install starship --locked
@@ -65,6 +66,8 @@ install_python3() {
 }
 
 install_build_deps() {
+  sudo apt update
+  sudo apt upgrade -y
   sudo apt install -y build-essential libssl-dev git tmux zip unzip curl pkg-config
 }
 
