@@ -1,20 +1,19 @@
 #!/usr/bin/env bash
 
 install_nvim() {
-  # Install neovim latest version
+  # Install neovim latest avail version.
   sudo apt install -y neovim
 
-  # Then overwrite the binary with the latest
+  # Then overwrite the binary with the actual latest.
   bash <(curl -s https://raw.githubusercontent.com/LunarVim/LunarVim/rolling/utils/installer/install-neovim-from-release)
   sudo install $HOME/.local/bin/nvim /usr/bin/nvim
   rm -rf neovim
 
-  # Now install AstroVim
-  rm -rf ~/.config/nvim
-  git clone https://github.com/AstroNvim/AstroNvim ~/.config/nvim
-  nvim +PackerSync
+  # Now install AstroVim.
+  rm -rf $HOME/.config/nvim
+  git clone https://github.com/AstroNvim/AstroNvim $HOME/.config/nvim
 
-  echo "Installed nvim + AstroVim."
+  echo "Installed nvim + AstroVim. Run 'nvim +PackerSync' to install all the plugins."
 }
 
 install_rust() {
@@ -57,6 +56,7 @@ install_volta_npm() {
   export VOLTA_HOME="$HOME/.volta"
   export PATH="$VOLTA_HOME/bin:$PATH"
   volta install node
+  volta install yarn
   echo "Installed Volta and NodeJS!"
 }
 
@@ -93,4 +93,4 @@ install_misc_utils
 install_nvim
 install_zsh
 
-echo "Installation complete."
+echo "Installation complete!"
