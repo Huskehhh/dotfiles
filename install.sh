@@ -80,6 +80,7 @@ install_misc_utils() {
   cargo install just --locked
   cargo install broot --locked
   cargo install atuin --locked
+  cargo install cargo-update --locked
 }
 
 echo "Starting installation..."
