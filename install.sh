@@ -31,12 +31,12 @@ install_zsh() {
   cp .zshrc $HOME/.zshrc
   
   # Begin zsh plugins installation.
-  cargo install sheldon --locked
+  cargo binstall sheldon --no-confirm
   mkdir -p $HOME/.zshrcsheldon/
   cp plugins.toml $HOME/.sheldon/plugins.toml
 
   # Starship prompt.
-  cargo install starship --locked
+  cargo binstall starship --no-confirm
 
   echo "Installed ZSH. Log in and log out for it to take effect."
 }
@@ -66,31 +66,34 @@ install_python3() {
 }
 
 install_build_deps() {
-  sudo apt update
-  sudo apt upgrade -y
-  sudo apt install -y build-essential libssl-dev git tmux zip unzip curl pkg-config
+  sudo apt update && sudo apt upgrade -y
+  sudo apt install -y build-essential libssl-dev git tmux zip unzip curl pkg-config cmake clang
 }
 
 install_misc_utils() {
-  cargo install zoxide --locked
-  cargo install ripgrep --locked
-  cargo install fd-find --locked
-  cargo install difftastic --locked
-  cargo install igrep --locked
-  cargo install just --locked
-  cargo install broot --locked
-  cargo install atuin --locked
-  cargo install cargo-update --locked
+  cargo install cargo-binstall
+  cargo binstall zoxide --no-confirm
+  cargo binstall ripgrep --no-confirm
+  cargo binstall fd-find --no-confirm
+  cargo binstall difftastic --no-confirm
+  cargo binstall igrep --no-confirm
+  cargo binstall just --no-confirm
+  cargo binstall broot --no-confirm
+  cargo binstall atuin --no-confirm
+  cargo binstall cargo-update --no-confirm
+  cargo binstall cargo-sweep --no-confirm
+  cargo binstall cargo-edit --no-confirm
+  cargo binstall tealdeer --no-confirm
 }
 
 echo "Starting installation..."
 
 install_build_deps
+install_misc_utils
 install_volta_npm
 install_python3
 install_rust
 install_sdkman
-install_misc_utils
 install_nvim
 install_zsh
 
