@@ -6,12 +6,12 @@ on:
     - cron: "0 3 * * *"
 
 jobs:
-  remove-old-artifacts:
+  remove-old-container-images:
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
     steps:
-      - name: Remove old artifacts
-        uses: c-hive/gha-remove-artifacts@v1
+      - uses: actions/delete-package-versions@v3
         with:
-          age: "1 week"
+          package-name: "dev-container"
+          min-versions-to-keep: 3
