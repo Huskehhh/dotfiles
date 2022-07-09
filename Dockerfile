@@ -1,4 +1,4 @@
-from ubuntu:latest 
+FROM ubuntu:latest 
 
 COPY . .
 
