@@ -89,10 +89,10 @@ install_misc_utils() {
 echo "Starting installation..."
 
 install_build_deps
+install_rust
 install_misc_utils
 install_volta_npm
 install_python3
-install_rust
 install_sdkman
 install_nvim
 install_zsh
