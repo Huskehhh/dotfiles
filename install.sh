@@ -1,13 +1,9 @@
 #!/usr/bin/env bash
 
 install_nvim() {
-  # Install neovim latest avail version.
-  sudo apt install -y neovim
-
-  # Then overwrite the binary with the actual latest.
+  # Overwrite the 'neovim' binary with the actual latest.
   bash <(curl -s https://raw.githubusercontent.com/LunarVim/LunarVim/rolling/utils/installer/install-neovim-from-release)
-  sudo install $HOME/.local/bin/nvim /usr/bin/nvim
-  rm -rf neovim
+  sudo ln -s $HOME/.local/bin/nvim /usr/bin/nvim
 
   # Now install AstroVim.
   rm -rf $HOME/.config/nvim
@@ -29,16 +25,22 @@ install_zsh() {
   chsh -s `which zsh`
   cp .aliases.zsh $HOME/.aliases.zsh
   cp .zshrc $HOME/.zshrc
-  
+
+  zsh
+
+  echo "Installed ZSH."
+}
+
+install_zsh_plugins() {
   # Begin zsh plugins installation.
   cargo binstall sheldon --no-confirm
-  mkdir -p $HOME/.zshrcsheldon/
+  mkdir -p $HOME/.sheldon/
   cp plugins.toml $HOME/.sheldon/plugins.toml
 
   # Starship prompt.
   cargo binstall starship --no-confirm
 
-  echo "Installed ZSH. Log in and log out for it to take effect."
+  echo "Installed ZSH plugins."
 }
 
 install_sdkman() {
@@ -60,14 +62,9 @@ install_volta_npm() {
   echo "Installed Volta and NodeJS!"
 }
 
-install_python3() {
-  sudo apt install -y python3 python3-pip
-  echo "Installed Python3 and pip!"
-}
-
 install_build_deps() {
   sudo apt update && sudo apt upgrade -y
-  sudo apt install -y build-essential libssl-dev git tmux zip unzip curl pkg-config cmake clang
+  sudo apt install -y build-essential libssl-dev git tmux zip unzip curl pkg-config cmake clang python3 python3-pip gdbserver neovim
 }
 
 install_misc_utils() {
@@ -89,12 +86,12 @@ install_misc_utils() {
 echo "Starting installation..."
 
 install_build_deps
+install_zsh
 install_rust
 install_misc_utils
+install_zsh_plugins
 install_volta_npm
-install_python3
 install_sdkman
 install_nvim
-install_zsh
 
 echo "Installation complete!"
