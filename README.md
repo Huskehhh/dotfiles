@@ -28,9 +28,8 @@ Tooling and configuration for my development environments.
 
 # Installation
 
-## Manually
-
 - Requires Debian-based distro.
+- Requires ZSH to be installed.
 
 1. Clone repo
 
@@ -44,6 +43,3 @@ git clone https://github.com/Huskehhh/dotfiles; cd dotfiles
 ./install.sh
 ```
 
-## Docker
-
-Container is built daily and is available at: `ghcr.io/huskehhh/dev-container:latest`

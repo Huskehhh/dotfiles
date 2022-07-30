@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
 install_nvim() {
   # Overwrite the 'neovim' binary with the actual latest.
@@ -19,20 +19,10 @@ install_rust() {
   echo "Rust installed."
 }
 
-install_zsh() {
-  echo "Installing ZSH..."
-  sudo apt install zsh -y
-  chsh -s `which zsh`
-  cp .aliases.zsh $HOME/.aliases.zsh
-  cp .zshrc $HOME/.zshrc
-
-  zsh
-
-  echo "Installed ZSH."
-}
-
 install_zsh_plugins() {
   # Begin zsh plugins installation.
+  cp .aliases.zsh $HOME/.aliases.zsh
+  cp .zshrc $HOME/.zshrc
   cargo binstall sheldon --no-confirm
   mkdir -p $HOME/.sheldon/
   cp plugins.toml $HOME/.sheldon/plugins.toml
@@ -64,7 +54,7 @@ install_volta_npm() {
 
 install_build_deps() {
   sudo apt update && sudo apt upgrade -y
-  sudo apt install -y build-essential libssl-dev git tmux zip unzip curl pkg-config cmake clang python3 python3-pip gdbserver neovim
+  sudo apt install -y build-essential libssl-dev git tmux zip unzip curl pkg-config cmake clang python3 python3-pip gdbserver
 }
 
 install_misc_utils() {
@@ -86,7 +76,6 @@ install_misc_utils() {
 echo "Starting installation..."
 
 install_build_deps
-install_zsh
 install_rust
 install_misc_utils
 install_zsh_plugins
