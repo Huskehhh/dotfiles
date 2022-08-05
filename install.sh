@@ -71,6 +71,7 @@ install_misc_utils() {
   cargo binstall cargo-sweep --no-confirm
   cargo binstall cargo-edit --no-confirm
   cargo binstall tealdeer --no-confirm
+  cargo binstall bat --no-confirm
 }
 
 echo "Starting installation..."
