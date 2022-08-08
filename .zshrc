@@ -1,9 +1,6 @@
 # SDKMAN.
 source "$HOME/.sdkman/bin/sdkman-init.sh"
 
-# Aliases live here.
-source $HOME/.aliases.zsh
-
 # Zoxide.
 eval "$(zoxide init zsh)"
 
@@ -22,3 +19,6 @@ eval $(just --completions zsh)
 
 # Atuin shell history.
 eval "$(atuin init zsh)"
+
+# Aliases live here.
+source $HOME/.aliases.zsh
