@@ -24,3 +24,5 @@ alias p="pueue"
 alias vim="nvim"
 
 alias socks="ssh -v -D 1337 -q -C -N jordyn@host"
+
+alias ls="exa"

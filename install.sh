@@ -72,6 +72,8 @@ install_misc_utils() {
   cargo binstall cargo-edit --no-confirm
   cargo binstall tealdeer --no-confirm
   cargo binstall bat --no-confirm
+  cargo binstall exa --no-confirm
+  cargo binstall zellij --no-confirm
 }
 
 echo "Starting installation..."

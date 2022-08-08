@@ -12,6 +12,9 @@ Tooling and configuration for my development environments.
 | zoxide       | A smarter cd command. | https://github.com/ajeetdsouza/zoxide |
 | ripgrep       | Fast recursive grep. | https://github.com/BurntSushi/ripgrep |
 | fd       | A simple, fast and user-friendly alternative to 'find'. | https://github.com/sharkdp/fd |
+| bat       | A cat(1) clone with wings. | https://github.com/sharkdp/bat |
+| exa       | A modern replacement for ‘ls’. | https://github.com/ogham/exa |
+| zellij       | A terminal workspace with batteries included. | https://github.com/zellij-org/zellij |
 | difftastic       | a structural diff that understands syntax . | https://github.com/Wilfred/difftastic |
 | igrep       | Interactive Grep. | https://github.com/konradsz/igrep |
 | just       | Just a command runner. | https://github.com/casey/just |
