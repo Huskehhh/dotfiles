@@ -14,7 +14,7 @@ alias lh="git rev-parse --short HEAD"
 
 alias flushdns="sudo systemd-resolve --flush-caches"
 
-alias zj="zellij"
+alias zj="zellij -l compact"
 
 alias rustscan='docker run -it --rm --name rustscan rustscan/rustscan:2.0.0'
 

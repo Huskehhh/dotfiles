@@ -75,6 +75,7 @@ install_misc_utils() {
   cargo binstall exa --no-confirm
   cargo binstall zellij --no-confirm
   cargo binstall cargo-watch --no-confirm
+  cargo binstall sccache --no-confirm
 }
 
 echo "Starting installation..."
