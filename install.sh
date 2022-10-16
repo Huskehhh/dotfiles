@@ -1,15 +1,14 @@
 #!/usr/bin/env zsh
 
 install_nvim() {
-  # Overwrite the 'neovim' binary with the actual latest.
   bash <(curl -s https://raw.githubusercontent.com/LunarVim/LunarVim/rolling/utils/installer/install-neovim-from-release)
   sudo ln -s $HOME/.local/bin/nvim /usr/bin/nvim
 
-  # Now install AstroVim.
   rm -rf $HOME/.config/nvim
-  git clone https://github.com/AstroNvim/AstroNvim $HOME/.config/nvim
+  git clone https://github.com/NvChad/NvChad ~/.config/nvim --depth 1
+  cp -r custom ~/.config/nvim/
 
-  echo "Installed nvim + AstroVim. Run 'nvim +PackerSync' to install all the plugins."
+  echo "Installed nvim + nvchad. Run 'nvim +PackerSync' to install all the plugins."
 }
 
 install_rust() {
@@ -54,7 +53,7 @@ install_volta_npm() {
 
 install_build_deps() {
   sudo apt update && sudo apt upgrade -y
-  sudo apt install -y build-essential libssl-dev git tmux zip unzip curl pkg-config cmake clang python3 python3-pip gdbserver
+  sudo apt install -y build-essential libssl-dev git tmux zip unzip curl pkg-config cmake clang python3 python3-pip gdbserver gdb
 }
 
 install_misc_utils() {
@@ -76,16 +75,19 @@ install_misc_utils() {
   cargo binstall zellij --no-confirm
   cargo binstall cargo-watch --no-confirm
   cargo binstall sccache --no-confirm
+  cargo binstall topgrade --no-confirm
 }
 
 echo "Starting installation..."
 
+set -e
 install_build_deps
 install_rust
 install_misc_utils
 install_zsh_plugins
 install_volta_npm
-install_sdkman
 install_nvim
+# Disabled for now, don't really use java.
+# install_sdkman
 
 echo "Installation complete!"
