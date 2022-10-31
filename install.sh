@@ -1,14 +1,15 @@
 #!/usr/bin/env zsh
 
 install_nvim() {
-  bash <(curl -s https://raw.githubusercontent.com/LunarVim/LunarVim/rolling/utils/installer/install-neovim-from-release)
-  sudo ln -s $HOME/.local/bin/nvim /usr/bin/nvim
+  # Add PPA for neovim.
+	sudo add-apt-repository ppa:neovim-ppa/stable
+  sudo apt-get update
+	sudo apt-get install neovim
 
-  rm -rf $HOME/.config/nvim
-  git clone https://github.com/NvChad/NvChad ~/.config/nvim --depth 1
-  cp -r custom ~/.config/nvim/
+  # Install LunarVim.
+  bash <(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh)
 
-  echo "Installed nvim + nvchad. Run 'nvim +PackerSync' to install all the plugins."
+  echo "Installed nvim. Run 'nvim +PackerSync' to install all the plugins."
 }
 
 install_rust() {
