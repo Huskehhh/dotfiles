@@ -54,7 +54,7 @@ install_volta_npm() {
 
 install_build_deps() {
   sudo apt update && sudo apt upgrade -y
-  sudo apt install -y build-essential libssl-dev git tmux zip unzip curl pkg-config cmake clang python3 python3-pip gdbserver gdb
+  sudo apt install -y build-essential libssl-dev git tmux zip unzip curl pkg-config cmake clang python3 python3-pip gdbserver gdb software-properties-common
 }
 
 install_misc_utils() {
