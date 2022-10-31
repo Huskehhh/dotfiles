@@ -1,12 +1,18 @@
 #!/usr/bin/env zsh
 
-install_nvim() {
-  # Add PPA for neovim.
-	sudo add-apt-repository ppa:neovim-ppa/stable
-  sudo apt-get update
-	sudo apt-get install neovim
+install_neovim_from_github() {
+  curl -s https://api.github.com/repos/neovim/neovim/releases/latest \
+  | grep "nvim.*deb" \
+  | cut -d : -f 2,3 \
+  | tr -d \" \
+  | wget -qi -
 
-  # Install LunarVim.
+  sudo dpkg -i nvim-linux64.deb
+}
+
+install_nvim() {
+  install_neovim_from_github
+
   bash <(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh)
 
   echo "Installed nvim. Run 'nvim +PackerSync' to install all the plugins."
@@ -54,7 +60,7 @@ install_volta_npm() {
 
 install_build_deps() {
   sudo apt update && sudo apt upgrade -y
-  sudo apt install -y build-essential libssl-dev git tmux zip unzip curl pkg-config cmake clang python3 python3-pip gdbserver gdb software-properties-common
+  sudo apt install -y build-essential libssl-dev git tmux zip unzip curl wget pkg-config cmake clang python3 python3-pip gdbserver gdb
 }
 
 install_misc_utils() {
