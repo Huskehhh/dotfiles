@@ -13,7 +13,7 @@ install_neovim_from_github() {
 install_nvim() {
   install_neovim_from_github
 
-  bash <(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh)
+  LV_BRANCH='release-1.2/neovim-0.8' bash <(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh)
 
   echo "Installed nvim. Run 'nvim +PackerSync' to install all the plugins."
 }

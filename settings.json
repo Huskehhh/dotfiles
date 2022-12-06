@@ -16,7 +16,10 @@
   "editor.formatOnType": true,
   "explorer.confirmDelete": false,
   "editor.formatOnPaste": true,
-  "remote.SSH.remotePlatform": {},
+  "remote.SSH.remotePlatform": {
+    "kamino.husk.pro": "linux",
+    "valheim.husk.pro": "linux"
+  },
   "git.autofetch": true,
   "[c]": {
     "editor.defaultFormatter": "ms-vscode.cpptools"
@@ -82,7 +85,7 @@
   "javascript.updateImportsOnFileMove.enabled": "always",
   "editor.linkedEditing": true,
   "editor.codeLensFontFamily": "JetBrains",
-  "terminal.integrated.fontFamily": "JetBrains",
+  "terminal.integrated.fontFamily": "Iosevka",
   "terminal.integrated.scrollback": 100000,
   "editor.fontLigatures": true,
   "files.watcherExclude": {
@@ -117,8 +120,24 @@
   "vim.hlsearch": true,
   "vim.gdefault": true,
   "vim.smartRelativeLine": true,
+  "vim.normalModeKeyBindings": [
+    {
+      "before": ["]", "d"],
+      "commands": ["editor.action.marker.nextInFiles"]
+    },
+    {
+      "before": ["[", "d"],
+      "commands": ["editor.action.marker.prevInFiles"]
+    }
+  ],
   "[html]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "vsicons.dontShowNewVersionMessage": false
+  "vsicons.dontShowNewVersionMessage": true,
+  "svelte.enable-ts-plugin": true,
+  "svelte.plugin.svelte.note-new-transformation": false,
+  "editor.stickyScroll.enabled": true,
+  "vim.useSystemClipboard": true,
+  "vim.visualstar": true,
+  "vim.highlightedyank.enable": true
 }
