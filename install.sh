@@ -13,9 +13,7 @@ install_neovim_from_github() {
 install_nvim() {
   install_neovim_from_github
 
-  LV_BRANCH='release-1.2/neovim-0.8' bash <(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh)
-
-  echo "Installed nvim. Run 'nvim +PackerSync' to install all the plugins."
+  echo "Installed nvim."
 }
 
 install_rust() {
@@ -26,7 +24,6 @@ install_rust() {
 }
 
 install_zsh_plugins() {
-  # Begin zsh plugins installation.
   cp .aliases.zsh $HOME/.aliases.zsh
   cp .zshrc $HOME/.zshrc
   cargo binstall sheldon --no-confirm
@@ -37,16 +34,6 @@ install_zsh_plugins() {
   cargo binstall starship --no-confirm
 
   echo "Installed ZSH plugins."
-}
-
-install_sdkman() {
-  echo "Installing SDKMAN..."
-  curl -s "https://get.sdkman.io" | bash
-  source "$HOME/.sdkman/bin/sdkman-init.sh"
-  sdk install maven
-  sdk install gradle
-  echo "Installed SDKMAN..."
-  echo "A java installation needs to be installed, view the output of 'sdk list java' and install via 'sdk install java <version>'."
 }
 
 install_volta_npm() {
@@ -68,18 +55,14 @@ install_misc_utils() {
   cargo binstall zoxide --no-confirm
   cargo binstall ripgrep --no-confirm
   cargo binstall fd-find --no-confirm
-  cargo binstall difftastic --no-confirm
-  cargo binstall igrep --no-confirm
   cargo binstall just --no-confirm
   cargo binstall broot --no-confirm
   cargo binstall atuin --no-confirm
   cargo binstall cargo-update --no-confirm
   cargo binstall cargo-sweep --no-confirm
   cargo binstall cargo-edit --no-confirm
-  cargo binstall tealdeer --no-confirm
   cargo binstall bat --no-confirm
   cargo binstall exa --no-confirm
-  cargo binstall zellij --no-confirm
   cargo binstall cargo-watch --no-confirm
   cargo binstall sccache --no-confirm
   cargo binstall topgrade --no-confirm
@@ -87,14 +70,12 @@ install_misc_utils() {
 
 echo "Starting installation..."
 
-set -e
 install_build_deps
 install_rust
 install_misc_utils
 install_zsh_plugins
 install_volta_npm
 install_nvim
-# Disabled for now, don't really use java.
-# install_sdkman
 
 echo "Installation complete!"
+
