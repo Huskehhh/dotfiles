@@ -64,6 +64,8 @@ install_build_deps() {
   python3 \
   python3-pip \
   python3-venv \
+  patchelf \
+  elfutils \
   gdbserver \
   gdb
 }
@@ -84,6 +86,7 @@ install_misc_utils() {
   cargo binstall cargo-watch --no-confirm
   cargo binstall sccache --no-confirm
   cargo binstall topgrade --no-confirm
+  cargo binstall pwninit --no-confirm
 
   pip install --user pwntools
   pip install --user ropper
