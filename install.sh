@@ -8,11 +8,11 @@ install_neovim_from_github() {
   | wget -qi -
 
   sudo dpkg -i nvim-linux64.deb
+  rm -rf nvim-linux64.deb*
 }
 
 install_nvim() {
   install_neovim_from_github
-
   echo "Installed nvim."
 }
 
@@ -27,8 +27,8 @@ install_zsh_plugins() {
   cp .aliases.zsh $HOME/.aliases.zsh
   cp .zshrc $HOME/.zshrc
   cargo binstall sheldon --no-confirm
-  mkdir -p $HOME/.sheldon/
-  cp plugins.toml $HOME/.sheldon/plugins.toml
+  mkdir -p $HOME/.config/sheldon/
+  cp plugins.toml $HOME/.config/sheldon/plugins.toml
 
   # Starship prompt.
   cargo binstall starship --no-confirm
@@ -47,7 +47,25 @@ install_volta_npm() {
 
 install_build_deps() {
   sudo apt update && sudo apt upgrade -y
-  sudo apt install -y build-essential libssl-dev git tmux zip unzip curl wget pkg-config cmake clang python3 python3-pip gdbserver gdb
+  sudo apt install -y \
+  build-essential \
+  libssl-dev \
+  git \
+  tmux \
+  zip \
+  unzip \
+  curl \
+  wget \
+  pkg-config \
+  cmake \
+  clang \
+  clangd \
+  clang-format \
+  python3 \
+  python3-pip \
+  python3-venv \
+  gdbserver \
+  gdb
 }
 
 install_misc_utils() {

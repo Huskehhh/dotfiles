@@ -14,6 +14,8 @@ alias lh="git rev-parse --short HEAD"
 
 alias py="python3"
 alias vim="nvim"
+alias n="nvim"
 alias ls="exa"
 alias cd="z"
+alias sz="source ~/.zshrc"
 
