@@ -84,6 +84,16 @@ install_misc_utils() {
   cargo binstall cargo-watch --no-confirm
   cargo binstall sccache --no-confirm
   cargo binstall topgrade --no-confirm
+
+  pip install --user pwntools
+  pip install --user ropper
+
+  pushd $HOME
+  git clone https://github.com/pwndbg/pwndbg
+  pushd pwndbg
+  ./setup.sh
+  popd
+  popd
 }
 
 echo "Starting installation..."
