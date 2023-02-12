@@ -1,21 +1,5 @@
 #!/usr/bin/env zsh
 
-install_neovim_from_github() {
-  curl -s https://api.github.com/repos/neovim/neovim/releases/latest \
-  | grep "browser_download_url.*deb" \
-  | cut -d : -f 2,3 \
-  | tr -d \" \
-  | wget -qi -
-
-  sudo dpkg -i nvim-linux64.deb
-  rm -rf nvim-linux64.deb*
-}
-
-install_nvim() {
-  install_neovim_from_github
-  echo "Installed nvim."
-}
-
 install_rust() {
   echo "Installing rust"
   curl https://sh.rustup.rs -sSf | sh -s -- -y
@@ -46,10 +30,10 @@ install_volta_npm() {
 }
 
 install_build_deps() {
-  sudo apt update && sudo apt upgrade -y
-  sudo apt install -y \
-  build-essential \
-  libssl-dev \
+  sudo pacman -Auy
+  yes | sudo pacman -S \
+  base-devel \
+  openssl \
   git \
   tmux \
   zip \
@@ -59,14 +43,12 @@ install_build_deps() {
   pkg-config \
   cmake \
   clang \
-  clangd \
-  clang-format \
-  python3 \
-  python3-pip \
-  python3-venv \
+  python \
+  python-pip \
+  python-virtualenv \
   patchelf \
   elfutils \
-  gdbserver \
+  neovim \
   gdb
 }
 
@@ -106,7 +88,6 @@ install_rust
 install_misc_utils
 install_zsh_plugins
 install_volta_npm
-install_nvim
 
 echo "Installation complete!"
 

@@ -34,7 +34,7 @@ Tooling and configuration for my development environments.
 
 # Installation
 
-- Requires Debian-based distro.
+- Requires Arch-based distro.
 - Requires ZSH to be installed.
 
 1. Clone repo
