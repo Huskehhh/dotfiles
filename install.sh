@@ -49,6 +49,7 @@ install_build_deps() {
   patchelf \
   elfutils \
   neovim \
+  extra/noto-fonts-emoji \
   gdb
 }
 
