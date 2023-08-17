@@ -1,13 +1,12 @@
 #!/usr/bin/env zsh
 
-install_zsh_plugins() {
+install_dotfiles() {
   cp .aliases.zsh $HOME/.aliases.zsh
   cp .zshrc $HOME/.zshrc
-  mkdir -p $HOME/.config/sheldon/
-  cp plugins.toml $HOME/.config/sheldon/plugins.toml
+  cp -r .config/* $HOME/.config/
   sheldon lock
 
-  echo "Installed ZSH plugins."
+  echo "Installed dotfiles."
 }
 
 install_system_deps() {
@@ -63,7 +62,7 @@ echo "Starting installation..."
 
 install_system_deps
 install_misc_utils
-install_zsh_plugins
+install_dotfiles
 
 echo "Installation complete!"
 
