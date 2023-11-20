@@ -21,5 +21,5 @@ use = ['*.zsh']
 github = 'ohmyzsh/ohmyzsh'
 dir = 'plugins'
 use = [
-    '{git,mvn,gradle,pip,pylint,python,rsync,screen,tmux,zoxide,docker,autopep8}/*.plugin.zsh',
+    '{git,zoxide}/*.plugin.zsh',
 ]

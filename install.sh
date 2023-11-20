@@ -48,14 +48,13 @@ install_system_deps() {
   pwndbg \
   cargo-binstall \
   sheldon \
-  tealdeer
+  tealdeer \
+  python-pwntools \
+  python-ropper
 }
 
 install_misc_utils() {
   cargo install pwninit
-
-  pip install --user pwntools
-  pip install --user ropper
 }
 
 echo "Starting installation..."
