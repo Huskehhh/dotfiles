@@ -1,0 +1,19 @@
+theme = "onedark"
+
+[editor]
+line-number = "relative"
+
+[editor.lsp]
+display-messages = true
+display-inlay-hints = true
+
+[editor.statusline]
+left = ["mode", "spinner", "file-name", "read-only-indicator", "file-modification-indicator"]
+center = ["spinner"]
+right = ["diagnostics", "selections", "register", "position", "position-percentage"]
+
+[keys.normal]
+"{" = ["goto_prev_paragraph", "collapse_selection"]
+"}" = ["goto_next_paragraph", "collapse_selection"]
+V = ["extend_to_line_bounds", "select_mode"]
+D = ["ensure_selections_forward", "extend_to_line_end", "delete_selection"]
